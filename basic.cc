@@ -1,6 +1,8 @@
 #include <iostream>
+#include "node.h"
 
 int main () {
-  std::cout << "Hello World" << std::endl;
+  graph_node::Node node(0);
+  std::cout << "Hello World ID: " << node.GetId() <<  std::endl;
 }
 
