@@ -1,19 +1,20 @@
 #ifndef MKHALAF_LEARNINGCPP17_NODE
 #define MKHALAF_LEARNINGCPP17_NODE
+#include "nodeid.h"
 
-namespace graph_node {
+namespace graphnode {
 
 class Node {
  public:
-  Node(unsigned int);
+  Node(int id);
 
-  unsigned int GetId() const;
+  // TODO(How do I print NodeId. Need to print it).
 
  private:
-  unsigned int id;
+  nodeid::NodeId id_;
 };
 
-} // namespace graph_node
+} // namespace graphnode
 
 
 #endif  // MKHALAF_LEARNINGCPP17_NODE
