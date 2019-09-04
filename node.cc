@@ -1,15 +1,13 @@
 #include "node.h"
+#include "nodeid.h"
 
 
-namespace graph_node {
+namespace graphnode {
 
-Node::Node(unsigned int id): id(id) {};
+Node::Node (int id): id_(nodeid::NodeId(id)) {};
 
-unsigned int Node::GetId() const  {
-  return(id);
-};
 
-} // namespace graph_node
+} // namespace graphnode
 
 
 
