@@ -1,3 +1,4 @@
+#include <iostream>
 #include "nodeid.h"
 
 
@@ -13,6 +14,12 @@ bool NodeId::operator==(const NodeId &nodeid) {
 
 bool NodeId::operator!=(const NodeId &nodeid) {
   return(!((*this) == nodeid));
+}
+
+std::ostream& operator<<(std::ostream &os, const NodeId &nodeid) {
+  os << nodeid.id_;
+  return(os);
+	
 }
 
 // A nodeID is valid only if it is assigned a positive number or 0

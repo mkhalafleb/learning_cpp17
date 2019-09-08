@@ -13,6 +13,8 @@ class NodeId {
   // valid
   bool IsValid() const;
 
+  friend std::ostream& operator<<(std::ostream &os, const NodeId &nodeid);
+
  private:
   int id_;
 };
