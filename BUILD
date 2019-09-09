@@ -12,7 +12,7 @@ cc_library(
   name = "node",
   srcs = ["node.cc"],
   hdrs = ["node.h"],
-  deps = [":nodeid", 
+  deps = [":nodeid",
   ],
 )
 

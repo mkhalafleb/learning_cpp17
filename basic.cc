@@ -3,7 +3,7 @@
 #include "node.h"
 #include "graph.h"
 
-int main () { 
+int main () {
   graph::Graph graph;
   graphnode::Node node_a(0), node_b(2);
 
@@ -14,7 +14,7 @@ int main () {
   if (auto spt = nodeptr.lock()) {
     std::cout << "Node C: " << *spt << std::endl;
   }
-  else { 
+  else {
     exit (1);
   }
 }
