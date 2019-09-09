@@ -1,5 +1,6 @@
 #ifndef MKHALAF_LEARNINGCPP17_NODEID
 #define MKHALAF_LEARNINGCPP17_NODEID
+#include <iostream>
 
 namespace nodeid {
 

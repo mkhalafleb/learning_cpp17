@@ -19,7 +19,6 @@ bool NodeId::operator!=(const NodeId &nodeid) {
 std::ostream& operator<<(std::ostream &os, const NodeId &nodeid) {
   os << nodeid.id_;
   return(os);
-	
 }
 
 // A nodeID is valid only if it is assigned a positive number or 0

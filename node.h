@@ -4,12 +4,10 @@
 #include "nodeid.h"
 
 namespace graphnode {
-    
 
 class Node {
  public:
   Node(int id);
-	
   friend std::ostream& operator<<(std::ostream &os, const Node &node);
 
  private:
