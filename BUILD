@@ -4,6 +4,7 @@ cc_binary(
   deps = [
       ":node",
       ":nodeid",
+      ":graph",
   ],
 )
 
@@ -19,5 +20,13 @@ cc_library(
   name = "nodeid",
   srcs = ["nodeid.cc"],
   hdrs = ["nodeid.h"],
+)
+
+cc_library(
+  name = "graph",
+  srcs = ["graph.cc"],
+  hdrs = ["graph.h"],
+  deps = [":node",
+  ],
 )
 
