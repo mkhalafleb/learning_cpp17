@@ -8,6 +8,15 @@ cc_binary(
   ],
 )
 
+cc_test(
+  name = "nodeid_test",
+  srcs = ["nodeid_test.cc"],
+  deps = [
+      ":nodeid",
+      ":gtest",
+],
+)
+
 cc_library(
   name = "node",
   srcs = ["node.cc"],
