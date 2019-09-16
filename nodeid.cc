@@ -7,12 +7,12 @@ namespace nodeid {
 NodeId::NodeId(int id): id_(id) {};
 
 
-bool NodeId::operator==(const NodeId &nodeid) {
+bool NodeId::operator==(const NodeId &nodeid) const {
   bool bothvalid = IsValid() && nodeid.IsValid();
   return (bothvalid && (id_ ==  nodeid.id_));
 }
 
-bool NodeId::operator!=(const NodeId &nodeid) {
+bool NodeId::operator!=(const NodeId &nodeid) const {
   return(!((*this) == nodeid));
 }
 

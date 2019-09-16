@@ -8,8 +8,8 @@ class NodeId {
  public:
 
   NodeId(int nodeid);
-  bool operator== (const NodeId &nodeid);
-  bool operator!= (const NodeId &nodeid);
+  bool operator== (const NodeId &nodeid) const;
+  bool operator!= (const NodeId &nodeid) const;
   // a Node can have an invalid ID and can only be compared if it is really
   // valid
   bool IsValid() const;
