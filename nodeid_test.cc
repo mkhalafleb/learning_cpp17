@@ -20,5 +20,17 @@ TEST_F(NodeIdTest, TwoNodesNotEqual) {
   EXPECT_NE(a,b);
 }
 
+TEST_F(NodeIdTest, SingleNodeNotValid) {
+  nodeid::NodeId a(-1);
+  nodeid::NodeId b(-2);
+  EXPECT_FALSE(a.IsValid());
+  EXPECT_FALSE(b.IsValid());
+}
+
+TEST_F(NodeIdTest, SingleNodeValid) {
+  nodeid::NodeId a(1);
+  EXPECT_TRUE(a.IsValid());
+}
+
 }  // namespace
 
