@@ -14,7 +14,8 @@ class Graph {
   std::weak_ptr<graphnode::Node> AddNode();
 
  private:
-  std::list<std::shared_ptr<graphnode::Node>> nodelist;
+  static unsigned int lastnodeid_;
+  std::list<std::shared_ptr<graphnode::Node>> nodelist_;
 };
 
 } // namespace graph
