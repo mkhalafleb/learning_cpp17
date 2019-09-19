@@ -17,5 +17,12 @@ int main () {
   else {
     exit (1);
   }
+  nodeptr = graph.AddNode();
+  if (auto spt = nodeptr.lock()) {
+    std::cout << "Node D: " << *spt << std::endl;
+  }
+  else {
+    exit (1);
+  }
 }
 
