@@ -1,6 +1,7 @@
 #ifndef MKHALAF_LEARNINGCPP17_NODE
 #define MKHALAF_LEARNINGCPP17_NODE
 #include <iostream>
+#include <memory>
 #include "nodeid.h"
 
 namespace graphnode {
@@ -12,6 +13,9 @@ class Node {
 
  private:
   nodeid::NodeId id_;
+  std::weak_ptr<Node> next_;
+  // Each node has one and only one next pointer for now and does
+  // not own the next node.
 };
 
 } // namespace graphnode

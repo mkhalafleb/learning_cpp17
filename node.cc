@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 #include "node.h"
 #include "nodeid.h"
 
@@ -13,7 +14,7 @@ std::ostream& operator<<(std::ostream &os, const Node &node) {
 
 
 
-Node::Node (int id): id_(nodeid::NodeId(id)) {};
+Node::Node (int id): id_(nodeid::NodeId(id)), next_(std::weak_ptr<Node>()) {};
 
 
 } // namespace graphnode
