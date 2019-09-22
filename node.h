@@ -8,7 +8,12 @@ namespace graphnode {
 
 class Node {
  public:
-  Node(int id);
+  Node(const nodeid::NodeId &nodeid);
+
+  void AddNeighbour(std::weak_ptr<Node> neighbour);
+
+  std::weak_ptr<Node> GetNeighbour() const;
+
   friend std::ostream& operator<<(std::ostream &os, const Node &node);
 
  private:
