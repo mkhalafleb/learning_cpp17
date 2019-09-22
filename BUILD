@@ -20,6 +20,16 @@ cc_test(
 ],
 )
 
+cc_test(
+  name = "node_test",
+  srcs = ["node_test.cc"],
+  deps = [
+      "@gtest//:gtest",
+      "@gtest//:gtest_main",
+      ":node",
+],
+)
+
 cc_library(
   name = "node",
   srcs = ["node.cc"],
