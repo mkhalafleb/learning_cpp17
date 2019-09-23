@@ -52,3 +52,9 @@ cc_library(
   ],
 )
 
+cc_library(
+  name = "graphcreator",
+  srcs = ["graphcreator.cc"],
+  hdrs = ["graphcreator.h"],
+)
+
