@@ -5,7 +5,6 @@ namespace graphcreator {
 
 class GraphCreator {
  public:
-  
 
  private:
 };
@@ -14,6 +13,3 @@ class GraphCreator {
 
 
 #endif  // MKHALAF_LEARNINGCPP17_GRAPHCREATOR
-
-
-
