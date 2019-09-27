@@ -6,6 +6,8 @@ cc_binary(
       ":nodeid",
       ":graph",
   ],
+  copts = ["--std=c++17",
+  ],
 )
 
 
@@ -17,7 +19,9 @@ cc_test(
       "@gtest//:gtest",
       "@gtest//:gtest_main",
       ":nodeid",
-],
+  ],
+  copts = ["--std=c++17",
+  ],
 )
 
 cc_test(
@@ -27,7 +31,9 @@ cc_test(
       "@gtest//:gtest",
       "@gtest//:gtest_main",
       ":node",
-],
+  ],
+  copts = ["--std=c++17",
+  ],
 )
 
 cc_library(
@@ -36,12 +42,16 @@ cc_library(
   hdrs = ["node.h"],
   deps = [":nodeid",
   ],
+  copts = ["--std=c++17",
+  ],
 )
 
 cc_library(
   name = "nodeid",
   srcs = ["nodeid.cc"],
   hdrs = ["nodeid.h"],
+  copts = ["--std=c++17",
+  ],
 )
 
 cc_library(
@@ -49,6 +59,16 @@ cc_library(
   srcs = ["graph.cc"],
   hdrs = ["graph.h"],
   deps = [":node",
+  ],
+  copts = ["--std=c++17",
+  ],
+)
+
+cc_library(
+  name = "graphcreator",
+  srcs = ["graphcreator.cc"],
+  hdrs = ["graphcreator.h"],
+  copts = ["--std=c++17",
   ],
 )
 
