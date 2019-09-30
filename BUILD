@@ -72,3 +72,12 @@ cc_library(
   ],
 )
 
+cc_library(
+  name = "textreader",
+  srcs = ["textreader.cc"],
+  hdrs = ["textreader.h"],
+  copts = ["--std=c++17",
+  ],
+)
+
+
