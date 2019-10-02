@@ -1,6 +1,7 @@
 #include "textreader.h"
 #include <fstream>
 #include <string>
+#include <algorithm>
 
 
 
@@ -39,6 +40,7 @@ bool TextReader::CreateAdjacency() {
 bool TextReader::VerifyAdjacency() {
   // One unique source for entire vector
   //
+  std::sort(adjlist_.begin(), adjlist_.end(), TextReader::VecPairSort);
   // source vector on source
   return(true);
 }
@@ -50,6 +52,9 @@ std::pair<bool, std::optional<std::pair<unsigned int,std::optional<unsigned int>
 
 
 
+bool TextReader::VecPairSort(std::pair<unsigned int, std::optional<unsigned int>> rec_a, std::pair<unsigned int, std::optional<unsigned int>> rec_b) {
+  return(rec_a.first < rec_a.second);
+}
 
 TextReader::~TextReader() {
   // close the stream

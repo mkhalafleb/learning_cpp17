@@ -32,6 +32,9 @@ class TextReader {
 
   std::pair<bool, std::optional<std::pair<unsigned int, std::optional<unsigned int>>>> ProcessLine(const std::string &line) const;
 
+  static bool VecPairSort(std::pair<unsigned int, std::optional<unsigned int>> rec_a, std::pair<unsigned int, std::optional<unsigned int>> rec_b);
+
+
   std::string filename_;
   std::ifstream textstream_;
   std::vector<std::pair<unsigned int, std::optional <unsigned int>>> adjlist_;
