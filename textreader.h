@@ -34,6 +34,8 @@ class TextReader {
 
   static bool VecPairSort(std::pair<unsigned int, std::optional<unsigned int>> rec_a, std::pair<unsigned int, std::optional<unsigned int>> rec_b);
 
+  static bool VecPairEqual(std::pair<unsigned int, std::optional<unsigned int>> rec_a, std::pair<unsigned int, std::optional<unsigned int>> rec_b);
+
 
   std::string filename_;
   std::ifstream textstream_;

@@ -40,9 +40,12 @@ bool TextReader::CreateAdjacency() {
 bool TextReader::VerifyAdjacency() {
   // One unique source for entire vector
   //
-  std::sort(adjlist_.begin(), adjlist_.end(), TextReader::VecPairSort);
   // source vector on source
-  return(true);
+  std::sort(adjlist_.begin(), adjlist_.end(), TextReader::VecPairSort);
+
+  // use adjacent find for uniqueness, if no adjacent find then each element
+  // is unique
+  return(std::adjacent_find(adjlist_.begin(), adjlist_.end(), TextReader::VecPairEqual) == adjlist_.end());
 }
 
 
@@ -53,7 +56,11 @@ std::pair<bool, std::optional<std::pair<unsigned int,std::optional<unsigned int>
 
 
 bool TextReader::VecPairSort(std::pair<unsigned int, std::optional<unsigned int>> rec_a, std::pair<unsigned int, std::optional<unsigned int>> rec_b) {
-  return(rec_a.first < rec_a.second);
+  return(rec_a.first < rec_a.first);
+}
+
+bool TextReader::VecPairEqual(std::pair<unsigned int, std::optional<unsigned int>> rec_a, std::pair<unsigned int, std::optional<unsigned int>> rec_b) {
+  return(rec_a.first == rec_b.first);
 }
 
 TextReader::~TextReader() {
