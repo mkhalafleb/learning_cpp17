@@ -80,4 +80,16 @@ cc_library(
   ],
 )
 
+cc_test(
+  name = "textreader_test",
+  srcs = ["textreader_test.cc"],
+  deps = [
+      "@gtest//:gtest",
+      "@gtest//:gtest_main",
+      ":textreader",
+  ],
+  copts = ["--std=c++17",
+  ],
+)
+
 
