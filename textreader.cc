@@ -12,7 +12,6 @@ TextReader::TextReader(const std::string &filename): filename_(filename) {
   textstream_.open(filename_);
 }
 
-
 bool TextReader::CreateAdjacency() {
 
   std::string line;
@@ -49,7 +48,22 @@ bool TextReader::VerifyAdjacency() {
 }
 
 
-std::pair<bool, std::optional<std::pair<unsigned int,std::optional<unsigned int>>>> TextReader::ProcessLine(const std::string &line) const {
+std::pair<bool, std::optional<std::pair<unsigned int,std::optional<unsigned int>>>> TextReader::ProcessLine(const std::string &line) {
+
+
+  // The format is (int, [int|nothing]) per line
+  std::string::size_type comma = line.find(','); 
+  if (comma  == std::string::npos)  {
+    // No Comma found
+    return(std::make_pair(false, std::nullopt));
+  } else {
+    // split string in half at comma
+    std::string_view  source = line.substr(0, comma);
+    std::string_view  dest = line.substr(comma+1, (line.size() - (comma+1)));
+
+    // now convert them to integer and make sure it is pure
+
+  }
   return(std::make_pair(false, std::nullopt));
 }
 
