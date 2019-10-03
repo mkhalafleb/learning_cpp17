@@ -31,6 +31,8 @@ class TextReader {
 
  private:
 
+  static bool IsAllBlank(const std::string &str);
+
   static std::optional<unsigned int> ExtractInt(std::string_view number);
 
   std::optional<std::pair<unsigned int, std::optional<unsigned int>>> ProcessLine(const std::string &line);

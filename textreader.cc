@@ -14,6 +14,16 @@ TextReader::TextReader(const std::string &filename): filename_(filename) {
   textstream_.open(filename_);
 }
 
+bool TextReader::IsAllBlank(const std::string &str) {
+
+  if (str.empty()) {
+    return(true);
+  } else {
+    return std::all_of(str.begin(),str.end(),[](unsigned char c) { return std::isspace(c); });
+  }
+
+}
+
 
 std::optional<unsigned int> TextReader::ExtractInt(std::string_view number) {
 
@@ -26,6 +36,9 @@ std::optional<unsigned int> TextReader::ExtractInt(std::string_view number) {
     if ((loc == std::string::npos) && (i_dec >= 0)) {
       return(i_dec);
     } 
+    else if (TextReader::IsAllBlank(num)) {
+      return(std::nullopt);
+    }
     else {
       // Need to Understand what null string or all white space does
       return(std::numeric_limits<unsigned int>::max());
