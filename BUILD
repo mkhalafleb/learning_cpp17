@@ -75,7 +75,18 @@ cc_library(
 cc_library(
   name = "textreader",
   srcs = ["textreader.cc"],
-  hdrs = ["textreader.h"],
+  hdrs = ["textreader.h",
+          "parsehelp.h",
+          ],
+  deps = [":parsehelp",],
+  copts = ["--std=c++17",
+  ],
+)
+
+cc_library(
+  name = "parsehelp",
+  srcs = ["parsehelp.cc"],
+  hdrs = ["parsehelp.h"],
   copts = ["--std=c++17",
   ],
 )
@@ -87,6 +98,19 @@ cc_test(
       "@gtest//:gtest",
       "@gtest//:gtest_main",
       ":textreader",
+      ":parsehelp",
+  ],
+  copts = ["--std=c++17",
+  ],
+)
+
+cc_test(
+  name = "parsehelp_test",
+  srcs = ["parsehelp_test.cc"],
+  deps = [
+      "@gtest//:gtest",
+      "@gtest//:gtest_main",
+      ":parsehelp",
   ],
   copts = ["--std=c++17",
   ],
