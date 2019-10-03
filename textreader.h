@@ -5,6 +5,7 @@
 #include <vector>
 #include <optional>
 #include <utility>
+#include <string_view>
 
 
 namespace textreader {
@@ -30,7 +31,9 @@ class TextReader {
 
  private:
 
-  static std::pair<bool, std::optional<std::pair<unsigned int, std::optional<unsigned int>>>> ProcessLine(const std::string &line);
+  static std::optional<unsigned int> ExtractInt(std::string_view number);
+
+  std::optional<std::pair<unsigned int, std::optional<unsigned int>>> ProcessLine(const std::string &line);
 
   static bool VecPairSort(std::pair<unsigned int, std::optional<unsigned int>> rec_a, std::pair<unsigned int, std::optional<unsigned int>> rec_b);
 

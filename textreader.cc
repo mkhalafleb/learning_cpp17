@@ -1,7 +1,9 @@
 #include "textreader.h"
 #include <fstream>
+#include <stdexcept>
 #include <string>
 #include <algorithm>
+#include <string_view>
 
 
 
@@ -12,6 +14,31 @@ TextReader::TextReader(const std::string &filename): filename_(filename) {
   textstream_.open(filename_);
 }
 
+
+std::optional<unsigned int> TextReader::ExtractInt(std::string_view number) {
+
+
+  // Need to add the fact null is real and all whitespace is real
+  try {
+    std::string num(number);
+    std::string::size_type loc;
+    int i_dec = std::stoi(num, &loc);
+    if ((loc == std::string::npos) && (i_dec >= 0)) {
+      return(i_dec);
+    } 
+    else {
+      // Need to Understand what null string or all white space does
+      return(std::numeric_limits<unsigned int>::max());
+    }
+  }
+  catch (std::invalid_argument) {
+    return(std::numeric_limits<unsigned int>::max());
+  }
+  catch (std::out_of_range) {
+    return(std::numeric_limits<unsigned int>::max());
+  }
+}
+
 bool TextReader::CreateAdjacency() {
 
   std::string line;
@@ -20,13 +47,13 @@ bool TextReader::CreateAdjacency() {
       return(false);
     } else {
       // Now process the line
-      std::pair<bool, std::optional<std::pair<unsigned int,std::optional<unsigned int>>>> source_dest = ProcessLine(line);
+      std::optional<std::pair<unsigned int,std::optional<unsigned int>>> source_dest = TextReader::ProcessLine(line);
 
-      if (!source_dest.first) {
+      if (!source_dest.has_value()) {
         return(false);
       }
       else {
-        adjlist_.push_back(*(source_dest.second));
+        adjlist_.push_back(*source_dest);
       }
     }
   }
@@ -48,23 +75,36 @@ bool TextReader::VerifyAdjacency() {
 }
 
 
-std::pair<bool, std::optional<std::pair<unsigned int,std::optional<unsigned int>>>> TextReader::ProcessLine(const std::string &line) {
+std::optional<std::pair<unsigned int,std::optional<unsigned int>>> TextReader::ProcessLine(const std::string &line) {
 
 
   // The format is (int, [int|nothing]) per line
-  std::string::size_type comma = line.find(','); 
+  std::string::size_type comma = line.find(',');
   if (comma  == std::string::npos)  {
     // No Comma found
-    return(std::make_pair(false, std::nullopt));
+    return(std::nullopt);
   } else {
     // split string in half at comma
-    std::string_view  source = line.substr(0, comma);
-    std::string_view  dest = line.substr(comma+1, (line.size() - (comma+1)));
+    std::string_view  source(line.substr(0, comma));
+    std::string_view  dest(line.substr(comma+1, (line.size() - (comma+1))));
 
     // now convert them to integer and make sure it is pure
+    std::optional<unsigned int> source_i = TextReader::ExtractInt(source);
+    std::optional<unsigned int> dest_i = TextReader::ExtractInt(dest);
+
+    bool valid_source = source_i.has_value() && (*source_i != std::numeric_limits<unsigned int>::max());
+    bool valid_dest = (dest_i.has_value() && (*dest_i != std::numeric_limits<unsigned int>::max())) || (!dest_i.has_value());
+    // We need to build the real number
+    if (!valid_source) {
+      return(std::nullopt);
+    } else if (valid_dest) {
+      return(std::make_pair(*source_i, *dest_i));
+    } else {
+      return(std::make_pair(*source_i, std::nullopt));
+    }
 
   }
-  return(std::make_pair(false, std::nullopt));
+  return(std::nullopt);
 }
 
 
