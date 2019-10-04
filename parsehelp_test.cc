@@ -2,7 +2,6 @@
 #include "gtest/gtest.h"
 #include <string>
 #include <optional>
-#include <iostream>
 
 namespace {
 
@@ -52,24 +51,34 @@ TEST_F(ParseHelpTest, ALLBLANKNULL) {
   EXPECT_FALSE(parsehelp::ParseHelp::ExtractInt(two_space).has_value());
 }
 
-TEST_F(ParseHelpTest, FULLLINE) {
-  std::string basic("24,25");
-  std::string basic_nodest("24,");
-
-  std::optional<std::pair<unsigned int, std::optional<unsigned int>>> p24_25
-    = parsehelp::ParseHelp::ProcessLine(basic);
-
-  EXPECT_EQ(*(p24_25), std::make_pair(24u,std::make_optional<unsigned int>(25)));
-
-  std::optional<std::pair<unsigned int, std::optional<unsigned int>>> p24_
-    = parsehelp::ParseHelp::ProcessLine(basic_nodest);
-
-  std::optional<std::pair<unsigned int, std::optional<unsigned int>>> p24_result = std::make_pair(24u, std::nullopt);
-
-  EXPECT_EQ(*(p24_), p24_result);
-
-
+TEST_F(ParseHelpTest, FULLLINEGOOD) {
+  std::optional<std::pair<unsigned int, std::optional<unsigned int>>> p24
+    = parsehelp::ParseHelp::ProcessLine("24,25");
+  EXPECT_EQ(*(p24), std::make_pair(24u,std::make_optional<unsigned int>(25)));
 }
+
+TEST_F(ParseHelpTest, FULLLINEGOOD_DESTEMPTY) {
+  std::optional<std::pair<unsigned int, std::optional<unsigned int>>> p24
+    = parsehelp::ParseHelp::ProcessLine("24,");
+  std::optional<std::pair<unsigned int, std::optional<unsigned int>>> p24_result = std::make_pair(24u, std::nullopt);
+  EXPECT_EQ(*(p24), p24_result);
+}
+
+TEST_F(ParseHelpTest, FULLLINE_BADSRC) {
+  std::optional<std::pair<unsigned int, std::optional<unsigned int>>> p24
+    = parsehelp::ParseHelp::ProcessLine("x24,BLA");
+  EXPECT_FALSE(p24.has_value());
+}
+
+/*
+TEST_F(ParseHelpTest, FULLLINE_BADDEST) {
+  std::optional<std::pair<unsigned int, std::optional<unsigned int>>> p24
+    = parsehelp::ParseHelp::ProcessLine("24,xBLA");
+  EXPECT_FALSE(p24.has_value());
+}
+*/
+
+
 
 }  // namespace
 
