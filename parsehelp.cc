@@ -4,6 +4,7 @@
 #include <string>
 #include <algorithm>
 #include <string_view>
+#include <iostream>
 
 
 
@@ -26,15 +27,16 @@ std::optional<unsigned int> ParseHelp::ExtractInt(std::string_view number) {
 
 
   // Need to add the fact null is real and all whitespace is real
+  std::string num(number);
+  std::string::size_type loc;
   try {
-    std::string num(number);
-    std::string::size_type loc;
     int i_dec = std::stoi(num, &loc);
-    if ((loc == std::string::npos) && (i_dec >= 0)) {
+    bool full_string_converted = (loc == num.size());
+    bool remainder_blank = ParseHelp::IsAllBlank(num.substr(loc,num.size()-loc));
+
+    if ((full_string_converted || remainder_blank) && (i_dec >0))
+    {
       return(i_dec);
-    } 
-    else if (ParseHelp::IsAllBlank(num)) {
-      return(std::nullopt);
     }
     else {
       // Need to Understand what null string or all white space does
@@ -42,10 +44,18 @@ std::optional<unsigned int> ParseHelp::ExtractInt(std::string_view number) {
     }
   }
   catch (std::invalid_argument) {
-    return(std::numeric_limits<unsigned int>::max());
+    if (ParseHelp::IsAllBlank(num)) {
+      return(std::nullopt);
+    } else {
+      return(std::numeric_limits<unsigned int>::max());
+    }
   }
   catch (std::out_of_range) {
-    return(std::numeric_limits<unsigned int>::max());
+    if (ParseHelp::IsAllBlank(num)) {
+      return(std::nullopt);
+    } else {
+      return(std::numeric_limits<unsigned int>::max());
+    }
   }
 }
 
@@ -73,20 +83,16 @@ std::optional<std::pair<unsigned int,std::optional<unsigned int>>> ParseHelp::Pr
     // We need to build the real number
     if (!valid_source) {
       return(std::nullopt);
-    } else if (valid_dest) {
+    } else if ((valid_dest) && (dest_i.has_value()))  {
       return(std::make_pair(*source_i, *dest_i));
     } else {
+      std::cout << "MARIO" << std::endl;
       return(std::make_pair(*source_i, std::nullopt));
     }
 
   }
   return(std::nullopt);
 }
-
-
-
-
-
 
 } // namespace parsehelp
 
