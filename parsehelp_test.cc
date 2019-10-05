@@ -70,13 +70,13 @@ TEST_F(ParseHelpTest, FULLLINE_BADSRC) {
   EXPECT_FALSE(p24.has_value());
 }
 
-/*
+
 TEST_F(ParseHelpTest, FULLLINE_BADDEST) {
   std::optional<std::pair<unsigned int, std::optional<unsigned int>>> p24
     = parsehelp::ParseHelp::ProcessLine("24,xBLA");
   EXPECT_FALSE(p24.has_value());
 }
-*/
+
 
 
 

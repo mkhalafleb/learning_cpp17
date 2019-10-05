@@ -81,12 +81,11 @@ std::optional<std::pair<unsigned int,std::optional<unsigned int>>> ParseHelp::Pr
     bool valid_source = source_i.has_value() && (*source_i != std::numeric_limits<unsigned int>::max());
     bool valid_dest = (dest_i.has_value() && (*dest_i != std::numeric_limits<unsigned int>::max())) || (!dest_i.has_value());
     // We need to build the real number
-    if (!valid_source) {
+    if ((!valid_source) || (!valid_dest)) {
       return(std::nullopt);
     } else if ((valid_dest) && (dest_i.has_value()))  {
       return(std::make_pair(*source_i, *dest_i));
     } else {
-      std::cout << "MARIO" << std::endl;
       return(std::make_pair(*source_i, std::nullopt));
     }
 
