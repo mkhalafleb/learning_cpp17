@@ -5,26 +5,37 @@
 #include <string>
 #include <algorithm>
 #include <string_view>
+#include <iostream>
+#include <filesystem>
 
 
 
 namespace textreader {
 
 
-TextReader::TextReader(const std::string &filename): filename_(filename) {
+TextReader::TextReader(const std::string &filename): filename_(filename) { 
+  std::string m_path = std::filesystem::current_path();
+  std::cout << "MARIO is " << m_path << std::endl;
   textstream_.open(filename_);
+  std::string how = textstream_.good() ? "GOOD" : "BAD";
+  std::cout << "File is " << how  << std::endl;
 }
 
 
 bool TextReader::CreateAdjacency() {
 
   std::string line;
+  std::cout << "Mario FALSE " << line << "*" << std::endl;
   while (textstream_.good()) {
     if (!std::getline(textstream_, line).good()) {
+      std::cout << "Mario FALSE " << line << "*" << std::endl;
       return(false);
     } else {
       // Now process the line
+      std::cout << "Mario " << line << "*" << std::endl;
+
       std::optional<std::pair<unsigned int,std::optional<unsigned int>>> source_dest = parsehelp::ParseHelp::ProcessLine(line);
+	
 
       if (!source_dest.has_value()) {
         return(false);
