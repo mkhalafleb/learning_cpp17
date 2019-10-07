@@ -12,6 +12,7 @@ class TextReaderTest : public ::testing::Test {
 TEST_F(TextReaderTest, CREATENAME) {
   textreader::TextReader txtreader("Hello");
   EXPECT_TRUE(txtreader.CreateAdjacency());
+  EXPECT_TRUE(txtreader.VerifyAdjacency());
  }
 
 }  // namespace
