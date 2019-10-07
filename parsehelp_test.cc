@@ -57,10 +57,24 @@ TEST_F(ParseHelpTest, FULLLINEGOOD) {
   EXPECT_EQ(*(p24), std::make_pair(24u,std::make_optional<unsigned int>(25)));
 }
 
+TEST_F(ParseHelpTest, FULLLINEZERO) {
+  std::optional<std::pair<unsigned int, std::optional<unsigned int>>> p24
+    = parsehelp::ParseHelp::ProcessLine("0,2");
+  EXPECT_EQ(*(p24), std::make_pair(0u,std::make_optional<unsigned int>(2)));
+}
+
+
 TEST_F(ParseHelpTest, FULLLINEGOOD_DESTEMPTY) {
   std::optional<std::pair<unsigned int, std::optional<unsigned int>>> p24
     = parsehelp::ParseHelp::ProcessLine("24,");
   std::optional<std::pair<unsigned int, std::optional<unsigned int>>> p24_result = std::make_pair(24u, std::nullopt);
+  EXPECT_EQ(*(p24), p24_result);
+}
+
+TEST_F(ParseHelpTest, FULLLINEGOOD_DESTEMPTYONE) {
+  std::optional<std::pair<unsigned int, std::optional<unsigned int>>> p24
+    = parsehelp::ParseHelp::ProcessLine("4,");
+  std::optional<std::pair<unsigned int, std::optional<unsigned int>>> p24_result = std::make_pair(4u, std::nullopt);
   EXPECT_EQ(*(p24), p24_result);
 }
 

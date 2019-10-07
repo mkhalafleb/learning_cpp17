@@ -11,7 +11,7 @@
 namespace textreader {
 
 
-TextReader::TextReader(const std::string &filename): filename_(filename) {
+TextReader::TextReader(const std::string &filename): filename_(filename) { 
   textstream_.open(filename_);
 }
 
@@ -20,10 +20,9 @@ bool TextReader::CreateAdjacency() {
 
   std::string line;
   while (textstream_.good()) {
-    if (!std::getline(textstream_, line).good()) {
-      return(false);
-    } else {
+    if (std::getline(textstream_, line).good()) {
       // Now process the line
+
       std::optional<std::pair<unsigned int,std::optional<unsigned int>>> source_dest = parsehelp::ParseHelp::ProcessLine(line);
 
       if (!source_dest.has_value()) {
