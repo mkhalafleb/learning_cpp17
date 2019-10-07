@@ -20,7 +20,7 @@ cc_test(
       "@gtest//:gtest_main",
       ":nodeid",
   ],
-  copts = ["--std=c++17",
+  copts = ["--std=c++17", 
   ],
 )
 
@@ -42,7 +42,7 @@ cc_library(
   hdrs = ["node.h"],
   deps = [":nodeid",
   ],
-  copts = ["--std=c++17",
+  copts = ["--std=c++17", 
   ],
 )
 
@@ -100,6 +100,7 @@ cc_test(
       ":textreader",
       ":parsehelp",
   ],
+  data = ["Hello"],
   copts = ["--std=c++17",
   ],
 )

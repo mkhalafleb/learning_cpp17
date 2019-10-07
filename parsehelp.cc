@@ -34,7 +34,7 @@ std::optional<unsigned int> ParseHelp::ExtractInt(std::string_view number) {
     bool full_string_converted = (loc == num.size());
     bool remainder_blank = ParseHelp::IsAllBlank(num.substr(loc,num.size()-loc));
 
-    if ((full_string_converted || remainder_blank) && (i_dec >0))
+    if ((full_string_converted || remainder_blank) && (i_dec >=0))
     {
       return(i_dec);
     }
