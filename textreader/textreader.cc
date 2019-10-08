@@ -1,10 +1,11 @@
 #include "textreader.h"
-#include "parsehelp.h"
+#include "parsehelp/parsehelp.h"
 #include <fstream>
 #include <stdexcept>
 #include <string>
 #include <algorithm>
 #include <string_view>
+#include <iostream>
 
 
 
@@ -13,6 +14,13 @@ namespace textreader {
 
 TextReader::TextReader(const std::string &filename): filename_(filename) { 
   textstream_.open(filename_);
+  if (textstream_.fail()) {
+    perror("HellO");
+    std::cout << "FAIL GOOD"  << std::endl;
+  }
+  else {
+    std::cout << "BAD" << std::endl;
+  }
 }
 
 
@@ -22,6 +30,8 @@ bool TextReader::CreateAdjacency() {
   while (textstream_.good()) {
     if (std::getline(textstream_, line).good()) {
       // Now process the line
+      std::cout << "NAD *" << line << "*" << std::endl;
+      
 
       std::optional<std::pair<unsigned int,std::optional<unsigned int>>> source_dest = parsehelp::ParseHelp::ProcessLine(line);
 
@@ -32,8 +42,12 @@ bool TextReader::CreateAdjacency() {
         adjlist_.push_back(*source_dest);
       }
     }
+    else {
+      std::cout << "HORRIBLE *" << line << "*" << std::endl;
+    }
   }
 
+  std::cout << "REALLY *" << line << "*" << std::endl;
   // Did I process the entire file
   // if I exited before eof then something went wrong
   return (textstream_.eof());
