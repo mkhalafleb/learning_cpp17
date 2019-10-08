@@ -18,5 +18,6 @@ cc_test(
       "//parsehelp:parsehelp",
   ],
   data = ["Hello"],
+  linkopts = ["-lstdc++fs"],
 )
 
