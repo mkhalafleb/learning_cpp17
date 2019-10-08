@@ -1,10 +1,11 @@
 #include "textreader.h"
-#include "parsehelp.h"
+#include "parsehelp/parsehelp.h"
 #include <fstream>
 #include <stdexcept>
 #include <string>
 #include <algorithm>
 #include <string_view>
+#include <iostream>
 
 
 
@@ -21,7 +22,6 @@ bool TextReader::CreateAdjacency() {
   std::string line;
   while (textstream_.good()) {
     if (std::getline(textstream_, line).good()) {
-      // Now process the line
 
       std::optional<std::pair<unsigned int,std::optional<unsigned int>>> source_dest = parsehelp::ParseHelp::ProcessLine(line);
 
