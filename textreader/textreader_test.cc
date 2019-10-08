@@ -12,10 +12,10 @@ class TextReaderTest : public ::testing::Test {
 
 // Tests that the Foo::Bar() method does Abc.
 TEST_F(TextReaderTest, CREATENAME) {
-  std::string test_file = getenv("TEST_SRCDIR");
-  test_file += "/workspace/textreader/Hello";
-  std::cout << "*" << test_file << "*" << std::endl;
-  textreader::TextReader txtreader(test_file);
+  std::string test_src = getenv("TEST_SRCDIR");
+  std::string test_workspace = getenv("TEST_WORKSPACE");
+  test_src += "/" + test_workspace + "/textreader/Hello";
+  textreader::TextReader txtreader(test_src);
   EXPECT_TRUE(txtreader.CreateAdjacency());
   EXPECT_TRUE(txtreader.VerifyAdjacency());
  }
