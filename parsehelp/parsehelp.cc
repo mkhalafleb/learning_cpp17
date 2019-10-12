@@ -4,7 +4,6 @@
 #include <string>
 #include <algorithm>
 #include <string_view>
-#include <iostream>
 
 
 
@@ -29,6 +28,8 @@ std::optional<unsigned int> ParseHelp::ExtractInt(std::string_view number) {
   // Need to add the fact null is real and all whitespace is real
   std::string num(number);
   std::string::size_type loc;
+
+
   try {
     int i_dec = std::stoi(num, &loc);
     bool full_string_converted = (loc == num.size());
@@ -43,14 +44,14 @@ std::optional<unsigned int> ParseHelp::ExtractInt(std::string_view number) {
       return(std::numeric_limits<unsigned int>::max());
     }
   }
-  catch (std::invalid_argument) {
+  catch (const std::invalid_argument &ia) {
     if (ParseHelp::IsAllBlank(num)) {
       return(std::nullopt);
     } else {
       return(std::numeric_limits<unsigned int>::max());
     }
   }
-  catch (std::out_of_range) {
+  catch (const std::out_of_range &ior) {
     if (ParseHelp::IsAllBlank(num)) {
       return(std::nullopt);
     } else {
@@ -71,8 +72,8 @@ std::optional<std::pair<unsigned int,std::optional<unsigned int>>> ParseHelp::Pr
     return(std::nullopt);
   } else {
     // split string in half at comma
-    std::string_view  source(line.substr(0, comma));
-    std::string_view  dest(line.substr(comma+1, (line.size() - (comma+1))));
+    std::string	source(line.substr(0, comma));
+    std::string dest(line.substr(comma+1, (line.size() - (comma+1))));
 
     // now convert them to integer and make sure it is pure
     std::optional<unsigned int> source_i = ParseHelp::ExtractInt(source);
