@@ -6,6 +6,7 @@
 #include <optional>
 #include <utility>
 #include <string_view>
+#include <list>
 
 
 namespace textreader {
@@ -23,8 +24,7 @@ class TextReader {
 
   bool VerifyAdjacency();
 
-  // Need to extract the vector
-
+  std::list<std::pair<unsigned int, std::optional <unsigned int>>> GetAdjacency() const;
 
   ~TextReader();
 
