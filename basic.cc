@@ -1,6 +1,6 @@
 #include <iostream>
 #include <memory>
-#include "node.h"
+#include "node/node.h"
 #include "graph.h"
 
 int main () {
