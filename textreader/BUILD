@@ -9,7 +9,9 @@ cc_library(
 cc_test(
     name = "textreader_test",
     srcs = ["textreader_test.cc"],
-    data = ["Hello"],
+    data = ["basic_list",
+            "basic_list_dup",
+           ],
     linkopts = ["-lstdc++fs"],
     deps = [
         ":textreader",

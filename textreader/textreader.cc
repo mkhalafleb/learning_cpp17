@@ -16,6 +16,10 @@ TextReader::TextReader(const std::string &filename): filename_(filename) {
   textstream_.open(filename_);
 }
 
+std::list<std::pair<unsigned int, std::optional <unsigned int>>> TextReader::GetAdjacency() const {
+  return(std::list<std::pair<unsigned int, std::optional <unsigned int>>>(adjlist_.begin(), adjlist_.end()));
+}
+
 
 bool TextReader::CreateAdjacency() {
 
