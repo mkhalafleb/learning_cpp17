@@ -53,7 +53,7 @@ bool TextReader::VerifyAdjacency() {
 
 
 bool TextReader::VecPairSort(std::pair<unsigned int, std::optional<unsigned int>> rec_a, std::pair<unsigned int, std::optional<unsigned int>> rec_b) {
-  return(rec_a.first < rec_a.first);
+  return(rec_a.first < rec_b.first);
 }
 
 bool TextReader::VecPairEqual(std::pair<unsigned int, std::optional<unsigned int>> rec_a, std::pair<unsigned int, std::optional<unsigned int>> rec_b) {
