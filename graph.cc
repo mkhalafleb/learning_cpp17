@@ -1,5 +1,5 @@
 #include "graph.h"
-#include "node.h"
+#include "node/node.h"
 
 
 namespace graph {
