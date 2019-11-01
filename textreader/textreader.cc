@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <string_view>
 #include <iostream>
+#include <set>
 
 
 
@@ -20,6 +21,35 @@ std::list<std::pair<unsigned int, std::optional <unsigned int>>> TextReader::Get
   return(std::list<std::pair<unsigned int, std::optional <unsigned int>>>(adjlist_.begin(), adjlist_.end()));
 }
 
+
+bool TextReader::RepairAdjacency() {
+
+  // Basically walk through each source and store it
+  // Walk through each destination and if not found in vec, add it, don't add dups
+  std::set<unsigned int> sources;
+
+  auto add_set = [&sources] (std::pair<unsigned int, std::optional<unsigned int>> &edge) { sources.insert(edge.first); };
+
+
+  std::for_each(adjlist_.begin(), adjlist_.end(), add_set); 
+
+  std::vector<std::pair<unsigned int, std::optional<unsigned int>>> added_list;
+
+  auto add_edge = [&added_list, &sources] (std::pair<unsigned int, std::optional<unsigned int>> &edge) {
+    if (!edge.second.has_value()) return;
+    if ((sources.find(*(edge.second))) != sources.end()) return;
+    // Add it 
+    added_list.push_back(std::make_pair(*(edge.second), std::nullopt)); 
+  };
+
+  std::for_each(adjlist_.begin(), adjlist_.end(), add_edge); 
+
+  adjlist_.insert(adjlist_.end(), added_list.begin(), added_list.end());
+    
+
+  // for each 
+  return(true);
+}
 
 bool TextReader::CreateAdjacency() {
 

@@ -24,6 +24,9 @@ class TextReader {
 
   bool VerifyAdjacency();
 
+  // If there are node destinations that are found not to have any entries in the list then add them with blank destinations
+  bool RepairAdjacency();
+
   std::list<std::pair<unsigned int, std::optional <unsigned int>>> GetAdjacency() const;
 
   ~TextReader();
