@@ -13,7 +13,7 @@
 namespace textreader {
 
 
-TextReader::TextReader(const std::string &filename): filename_(filename) { 
+TextReader::TextReader(const std::string &filename): filename_(filename) {
   textstream_.open(filename_);
 }
 
@@ -31,23 +31,22 @@ bool TextReader::RepairAdjacency() {
   auto add_set = [&sources] (std::pair<unsigned int, std::optional<unsigned int>> &edge) { sources.insert(edge.first); };
 
 
-  std::for_each(adjlist_.begin(), adjlist_.end(), add_set); 
+  std::for_each(adjlist_.begin(), adjlist_.end(), add_set);
 
   std::vector<std::pair<unsigned int, std::optional<unsigned int>>> added_list;
 
   auto add_edge = [&added_list, &sources] (std::pair<unsigned int, std::optional<unsigned int>> &edge) {
     if (!edge.second.has_value()) return;
     if ((sources.find(*(edge.second))) != sources.end()) return;
-    // Add it 
-    added_list.push_back(std::make_pair(*(edge.second), std::nullopt)); 
+    // Add it
+    added_list.push_back(std::make_pair(*(edge.second), std::nullopt));
   };
 
-  std::for_each(adjlist_.begin(), adjlist_.end(), add_edge); 
+  std::for_each(adjlist_.begin(), adjlist_.end(), add_edge);
 
   adjlist_.insert(adjlist_.end(), added_list.begin(), added_list.end());
-    
 
-  // for each 
+  // for each
   return(true);
 }
 
