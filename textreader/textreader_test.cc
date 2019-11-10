@@ -15,7 +15,7 @@ class TextReaderTest : public ::testing::Test {
  protected:
 };
 
-std::string TextReaderTest::FullPath(const std::string &endpath) {
+std::string TextReaderTest::FullPath(const std::string &endpath)  {
   std::filesystem::path basepath = std::getenv("TEST_SRCDIR");
   basepath /= std::filesystem::path(std::getenv("TEST_WORKSPACE"));
   basepath /= std::filesystem::path("textreader");
@@ -23,7 +23,7 @@ std::string TextReaderTest::FullPath(const std::string &endpath) {
   return(basepath.string());
 };
 
-void TextReaderTest::PrintList(const std::pair<unsigned int, std::optional<unsigned int>> &node)  {
+void TextReaderTest::PrintList(const std::pair<unsigned int, std::optional<unsigned int>> &node) {
   std::string dest = node.second.has_value() ? std::to_string(*(node.second)) : "";
   std::cout << "*" << node.first << "," << dest << "*" << std::endl;
 }
@@ -34,6 +34,7 @@ TEST_F(TextReaderTest, CREATENAME) {
   textreader::TextReader txtreader(TextReaderTest::FullPath("basic_list"));
   EXPECT_TRUE(txtreader.CreateAdjacency());
   EXPECT_TRUE(txtreader.VerifyAdjacency());
+  EXPECT_TRUE(txtreader.RepairAdjacency());
 
   // For Now just print the list
   auto adjlist = txtreader.GetAdjacency();

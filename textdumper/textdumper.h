@@ -14,6 +14,7 @@ class TextDumper {
   TextDumper(const std::string &filename, 
              const std::list<std::pair<unsigned int, std::optional<unsigned int>>> &edgelist);
 
+  bool DumpList();  // Can't be constant because it changes textstream_
 
   ~TextDumper();
 
