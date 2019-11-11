@@ -33,8 +33,6 @@ void TextReaderTest::PrintList(const std::pair<unsigned int, std::optional<unsig
 TEST_F(TextReaderTest, CREATENAME) {
   textreader::TextReader txtreader(TextReaderTest::FullPath("basic_list"));
   EXPECT_TRUE(txtreader.CreateAdjacency());
-  EXPECT_TRUE(txtreader.VerifyAdjacency());
-  EXPECT_TRUE(txtreader.RepairAdjacency());
 
   // For Now just print the list
   auto adjlist = txtreader.GetAdjacency();
@@ -44,7 +42,6 @@ TEST_F(TextReaderTest, CREATENAME) {
 TEST_F(TextReaderTest, CREATENAMEDUP) {
   textreader::TextReader txtreader(TextReaderTest::FullPath("basic_list_dup"));
   EXPECT_TRUE(txtreader.CreateAdjacency());
-  EXPECT_FALSE(txtreader.VerifyAdjacency());
 }
 
 }  // namespace

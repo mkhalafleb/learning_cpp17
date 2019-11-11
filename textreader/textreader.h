@@ -5,8 +5,6 @@
 #include <vector>
 #include <optional>
 #include <utility>
-#include <string_view>
-#include <list>
 
 
 namespace textreader {
@@ -22,26 +20,16 @@ class TextReader {
 
   bool CreateAdjacency();
 
-  bool VerifyAdjacency();
-
-  // If there are node destinations that are found not to have any entries in the list then add them with blank destinations
-  bool RepairAdjacency();
-
-  std::list<std::pair<unsigned int, std::optional <unsigned int>>> GetAdjacency() const;
+  std::vector<std::pair<unsigned int, std::optional <unsigned int>>> GetAdjacency() const;
 
   ~TextReader();
 
 
  private:
 
-  static bool VecPairSort(std::pair<unsigned int, std::optional<unsigned int>> rec_a, std::pair<unsigned int, std::optional<unsigned int>> rec_b);
-
-  static bool VecPairEqual(std::pair<unsigned int, std::optional<unsigned int>> rec_a, std::pair<unsigned int, std::optional<unsigned int>> rec_b);
-
-
   std::string filename_;
   std::ifstream textstream_;
-  std::vector<std::pair<unsigned int, std::optional <unsigned int>>> adjlist_;
+  std::vector<std::pair<unsigned int, std::optional <unsigned int>>> adjvec_;
 
 };
 
