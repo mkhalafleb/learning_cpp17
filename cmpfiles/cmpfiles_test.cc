@@ -23,9 +23,17 @@ std::string CmpFilesTest::FullPath(const std::string &endpath)  {
 
 // Tests that the Foo::Bar() method does Abc.
 TEST_F(CmpFilesTest, SAME_FILE) {
+  cmpfiles::CmpFiles compare2("basic_list", "basic_list");
+  
+  EXPECT_TRUE(compare2.FilesEqual() == "");
+
 }
 
 TEST_F(CmpFilesTest, DIFF_FILE) {
+  cmpfiles::CmpFiles compare2("basic_list", "basic_list_dup");
+
+  EXPECT_FALSE(compare2.FilesEqual() == "");
+
 }
 
 }  // namespace
