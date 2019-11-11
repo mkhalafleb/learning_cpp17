@@ -36,12 +36,48 @@ TEST_F(TextReaderTest, CREATENAME) {
 
   // For Now just print the list
   auto adjlist = txtreader.GetAdjacency();
-  std::for_each(adjlist.begin(), adjlist.end(),TextReaderTest::PrintList);
+
+  // basic_list has
+  // {2,4}, {0,2}., 4,
+
+  std::vector<std::pair<unsigned int, std::optional<unsigned int>>> cmpvec = {
+    std::make_pair(2u, std::make_optional(4u)),
+    std::make_pair(0u, std::make_optional(2u)),
+    std::make_pair(4u, std::nullopt)
+  };
+
+  EXPECT_TRUE(adjlist == cmpvec);
+
 }
 
 TEST_F(TextReaderTest, CREATENAMEDUP) {
   textreader::TextReader txtreader(TextReaderTest::FullPath("basic_list_dup"));
   EXPECT_TRUE(txtreader.CreateAdjacency());
+
+  // For Now just print the list
+  auto adjlist = txtreader.GetAdjacency();
+
+  // basic_list has
+  // {2,4}, {0,2}., {4,}, {2,5}
+
+  std::vector<std::pair<unsigned int, std::optional<unsigned int>>> cmpvec = {
+    std::make_pair(2u, std::make_optional(4u)),
+    std::make_pair(0u, std::make_optional(2u)),
+    std::make_pair(4u, std::nullopt),
+    std::make_pair(2u, std::make_optional(5u))
+  };
+
+  EXPECT_TRUE(adjlist == cmpvec);
+
+  std::vector<std::pair<unsigned int, std::optional<unsigned int>>> cmpvec2 = {
+    std::make_pair(2u, std::make_optional(4u)),
+    std::make_pair(0u, std::make_optional(2u)),
+    std::make_pair(4u, std::nullopt),
+    std::make_pair(2u, std::make_optional(4u)) // Changed 5 to  4
+  };
+
+  EXPECT_FALSE(adjlist == cmpvec2);
+
 }
 
 }  // namespace
