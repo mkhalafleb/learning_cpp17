@@ -1,9 +1,10 @@
 #include "textdumper.h"
 #include "gtest/gtest.h"
+#include "cmpfiles/cmpfiles.h"
 #include <string>
 #include <filesystem>
 #include <cstdlib>
-#include <list>
+#include <vector>
 #include <optional>
 
 namespace {
@@ -12,6 +13,8 @@ namespace {
 class TextDumperTest : public ::testing::Test {
  public:
   static std::string FullPath(const std::string &endpath) ;
+  static bool DumpFile(const std::string &fullpath,
+                       const std::vector<std::pair<unsigned int, std::optional<unsigned int>>> &edgevec);
  protected:
 };
 
@@ -25,20 +28,54 @@ std::string TextDumperTest::FullPath(const std::string &endpath) {
   return(basepath.string());
 };
 
+bool TextDumperTest::DumpFile(const std::string &fullpath, const std::vector<std::pair<unsigned int, std::optional<unsigned int>>> &edgevec) {
+
+  textdumper::TextDumper txtdumper(fullpath, edgevec);
+  return(txtdumper.DumpList());
+}
+
 // Tests that the Foo::Bar() method does Abc.
-TEST_F(TextDumperTest, BASETEST) {
+TEST_F(TextDumperTest, BASETESTEQUAL) {
 
 // Create List
-  std::list<std::pair<unsigned int, std::optional<unsigned int>>>  edgelist = {
+  std::vector<std::pair<unsigned int, std::optional<unsigned int>>>  edgevec = {
     std::make_pair(2u,  std::make_optional<unsigned int> (4u)),
-    std::make_pair(3u, std::nullopt)
+    std::make_pair(0u,  std::make_optional<unsigned int> (2u)),
+    std::make_pair(4u, std::nullopt)
   };
 
-  textdumper::TextDumper txtreader(TextDumperTest::FullPath("basic_list_dump"), edgelist);
-  EXPECT_TRUE(txtreader.DumpList());
-  // Now compare the files
+  EXPECT_TRUE(TextDumperTest::DumpFile(TextDumperTest::FullPath("basic_list_dump"), edgevec));
+
+  cmpfiles::CmpFiles comparator(TextDumperTest::FullPath("basic_list_dump"),
+                     TextDumperTest::FullPath("basic_list"));
+
+  EXPECT_FALSE(comparator.FilesEqual().has_value());
 
 }
+
+TEST_F(TextDumperTest, BASETESTNOTEQUAL) {
+
+// Create List
+  std::vector<std::pair<unsigned int, std::optional<unsigned int>>>  edgevec = {
+    std::make_pair(2u,  std::make_optional<unsigned int> (4u)),
+    std::make_pair(1u,  std::make_optional<unsigned int> (2u)),
+    std::make_pair(4u, std::nullopt)
+  };
+
+  EXPECT_TRUE(TextDumperTest::DumpFile(TextDumperTest::FullPath("basic_list_dump2"), edgevec));
+
+  cmpfiles::CmpFiles comparator(TextDumperTest::FullPath("basic_list_dump2"),
+                     TextDumperTest::FullPath("basic_list"));
+
+
+  std::optional<std::string> cmpvalue = comparator.FilesEqual();
+  EXPECT_TRUE(cmpvalue.has_value());
+  EXPECT_TRUE(*cmpvalue == "1,20,2");
+
+}
+
+
+
 
 
 

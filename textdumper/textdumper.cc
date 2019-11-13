@@ -1,6 +1,9 @@
 #include "textdumper.h"
-
-
+#include <string>
+#include <optional>
+#include <vector>
+#include <fstream>
+#include <utility>
 
 namespace textdumper {
 
@@ -11,25 +14,25 @@ bool TextDumper::DumpList() {
   }
 
   std::pair<unsigned int, std::optional<unsigned int>> edge;
-  for (auto iter=edgelist_.begin(); iter!=edgelist_.end();++iter) {
+  for (auto iter=edgevector_.begin(); iter!=edgevector_.end();++iter) {
     edge = *iter;
     if (!textstream_.good()) {
       return(false);
     }
-    textstream_ << "{" << edge.first  << ",";
+    textstream_ << edge.first  << ",";
     if (edge.second.has_value()) {
       textstream_ << *(edge.second);
     }
-    textstream_ << "}," << std::endl;
+    textstream_ << std::endl;
   }
   return(textstream_.good());
 }
 
 
 TextDumper::TextDumper(const std::string &filename,
-                       const std::list<std::pair<unsigned int,
-                                    std::optional<unsigned int>>> &edgelist)
-                      : filename_(filename), edgelist_(std::move(edgelist)) {
+                       const std::vector<std::pair<unsigned int,
+                                    std::optional<unsigned int>>> &edgevector)
+                      : filename_(filename), edgevector_(std::move(edgevector)) {
   textstream_.open(filename_);
 }
 

@@ -12,6 +12,7 @@ cc_test(
     data = ["basic_list"],
     deps = [
         ":textdumper",
+        "//cmpfiles:cmpfiles", 
         "@gtest",
         "@gtest//:gtest_main",
     ],
