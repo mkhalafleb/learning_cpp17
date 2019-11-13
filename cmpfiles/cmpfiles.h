@@ -2,6 +2,7 @@
 #define MKHALAF_LEARNINGCPP17_CMPFILES
 #include <fstream>
 #include <string>
+#include <optional>
 
 
 namespace cmpfiles {
@@ -12,7 +13,7 @@ class CmpFiles {
 
   // Returns null if they are equal otherwise returns a line that is a concat of
   // the first difference
-  std::string FilesEqual();
+  std::optional<std::string> FilesEqual();
 
 
   ~CmpFiles();
