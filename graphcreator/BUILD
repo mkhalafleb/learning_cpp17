@@ -5,6 +5,7 @@ cc_library(
     deps = ["//:graph",
             "//textreader:textreader",
             "//fixadjacency:fixadjacency",
+            "//node:node",
            ],
     visibility = ["//visibility:public"],
 )

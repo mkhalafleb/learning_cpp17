@@ -1,5 +1,6 @@
 #include "graphcreator.h"
 #include "graph.h"
+#include "node/node.h"
 #include "textreader/textreader.h"
 #include "fixadjacency/fixadjacency.h"
 #include <string>
@@ -36,6 +37,13 @@ bool GraphCreator::GetEdgeList() {
 
 // Create Graph from the file that is passed on to the class and saved in
 // filename_
+//
+void GraphCreator::PopulateGraph() {
+
+  // Iterate over the list and for each edge, if not in map, create the Node,
+  // insert it into Map, check the destination, if not in map, create the dest
+  // node and set it as weak_ptr
+}
 
 // Return nullopt if the graph can't be created
 std::optional<graph::Graph> GraphCreator::CreateGraph() {
@@ -44,7 +52,10 @@ std::optional<graph::Graph> GraphCreator::CreateGraph() {
   if (!GetEdgeList()) {
     return(std::nullopt);
   }
-  return(std::nullopt);
+
+  PopulateGraph();
+
+  return(std::make_optional(graph_));
 }
 
 
