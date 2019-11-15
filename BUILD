@@ -16,10 +16,6 @@ cc_library(
     deps = [
         "//node:node",
     ],
+    visibility = ["//visibility:public"],
 )
 
-cc_library(
-    name = "graphcreator",
-    srcs = ["graphcreator.cc"],
-    hdrs = ["graphcreator.h"],
-)
