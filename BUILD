@@ -16,5 +16,6 @@ cc_library(
     deps = [
         "//node:node",
     ],
+    visibility = ["//visibility:public"],
 )
 

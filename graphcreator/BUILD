@@ -2,6 +2,7 @@ cc_library(
     name = "graphcreator",
     srcs = ["graphcreator.cc"],
     hdrs = ["graphcreator.h"],
+    deps = ["//:graph"],
     visibility = ["//visibility:public"],
 )
 
