@@ -2,7 +2,10 @@ cc_library(
     name = "graphcreator",
     srcs = ["graphcreator.cc"],
     hdrs = ["graphcreator.h"],
-    deps = ["//:graph"],
+    deps = ["//:graph",
+            "//textreader:textreader",
+            "//fixadjacency:fixadjacency",
+           ],
     visibility = ["//visibility:public"],
 )
 
