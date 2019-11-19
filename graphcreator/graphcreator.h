@@ -7,7 +7,7 @@
 #include <utility>
 #include <list>
 #include <memory>
-#include <map>
+#include <unordered_map>
 
 namespace graphcreator {
 
@@ -34,7 +34,7 @@ class GraphCreator {
   std::list<std::pair<unsigned int, std::optional<unsigned int>>> adjlist_;
 
   // Temp processing of Graph Nodes
-  std::map<unsigned int, std::shared_ptr<graphnode::Node>> nodemap_;
+  std::unordered_map<unsigned int, std::weak_ptr<graphnode::Node>> nodemap_;
 
 };
 

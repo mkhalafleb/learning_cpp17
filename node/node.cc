@@ -8,6 +8,10 @@
 
 namespace graphnode {
 
+void Node::SetOriginalId(unsigned int original_id) {
+  original_id_= original_id;
+}
+
 void Node::AddNeighbour(std::weak_ptr<Node> neighbour) {
   assert(!next_.has_value());
   next_ = neighbour;
