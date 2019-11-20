@@ -1,14 +1,16 @@
+#include "node.h"
+#include "nodeid/nodeid.h"
+#include <limits>
 #include <iostream>
 #include <memory>
 #include <assert.h>
 #include <optional>
-#include "node.h"
-#include "nodeid/nodeid.h"
 
 
 namespace graphnode {
 
 void Node::SetOriginalId(unsigned int original_id) {
+  assert(original_id_ == std::numeric_limits<unsigned int>::max());
   original_id_= original_id;
 }
 
@@ -38,7 +40,7 @@ std::ostream& operator<<(std::ostream &os, const Node &node) {
 
 
 
-Node::Node (const nodeid::NodeId &nodeid): id_(nodeid), next_(std::nullopt) {};
+Node::Node (const nodeid::NodeId &nodeid): id_(nodeid), original_id_(std::numeric_limits<unsigned int>::max()), next_(std::nullopt) {};
 
 
 } // namespace graphnode

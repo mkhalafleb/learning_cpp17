@@ -25,6 +25,8 @@ class GraphCreator {
   // Fill the adjlist_ by reading the filename_
   bool GetEdgeList();
 
+  std::weak_ptr<graphnode::Node> GetNodePtr(unsigned int node_id);
+
   // Fill the graph class
   void PopulateGraph();
   graph::Graph graph_;
