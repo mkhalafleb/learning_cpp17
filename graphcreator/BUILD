@@ -13,6 +13,8 @@ cc_library(
 cc_test(
     name = "graphcreator_test",
     srcs = ["graphcreator_test.cc"],
+    data = ["basic_graph"],
+    linkopts = ["-lstdc++fs"],
     deps = [
         ":graphcreator",
         "@gtest",

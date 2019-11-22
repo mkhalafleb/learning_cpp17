@@ -17,10 +17,13 @@ class Node {
 
   std::weak_ptr<Node> GetNeighbour() const;
 
+  void SetOriginalId(unsigned int original_id);
+
   friend std::ostream& operator<<(std::ostream &os, const Node &node);
 
  private:
   nodeid::NodeId id_;
+  unsigned int original_id_; // only used as a marker during creation
   std::optional <std::weak_ptr<Node>> next_;
   // Each node has one and only one next pointer for now and does
   // not own the next node.

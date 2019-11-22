@@ -5,6 +5,9 @@
 #include "fixadjacency/fixadjacency.h"
 #include <string>
 #include <optional>
+#include <unordered_map>
+#include <list>
+#include <cassert>
 
 
 namespace graphcreator {
@@ -35,14 +38,54 @@ bool GraphCreator::GetEdgeList() {
 
 }
 
+std::weak_ptr<graphnode::Node> GraphCreator::GetNodePtr(unsigned int node_id) {
+  std::weak_ptr<graphnode::Node> node_ptr;
+  auto it = nodemap_.find(node_id);
+  if (it == nodemap_.end()) {
+      node_ptr = graph_.AddNode();
+      nodemap_.insert(std::make_pair(node_id, node_ptr));
+      if (auto sp = node_ptr.lock()) {
+        sp->SetOriginalId(node_id);
+        return(node_ptr);
+      }
+      else {
+        return(std::weak_ptr<graphnode::Node>());
+      }
+  }
+  else {
+    node_ptr = (*it).second;
+    return(node_ptr);
+  }
+}
+
+
+
+
 // Create Graph from the file that is passed on to the class and saved in
 // filename_
 //
 void GraphCreator::PopulateGraph() {
 
-  // Iterate over the list and for each edge, if not in map, create the Node,
+  // Iterate over the list and for each edge, if not in map, create the graphnode::Node,
   // insert it into Map, check the destination, if not in map, create the dest
   // node and set it as weak_ptr
+  for (auto listiter = adjlist_.begin();
+       listiter != adjlist_.end();
+       ++listiter)  {
+    std::pair<unsigned int, std::optional<unsigned int>> edge = *listiter;
+
+    // Is node present
+    std::weak_ptr<graphnode::Node> source_node = GetNodePtr(edge.first);
+    assert(!source_node.expired());
+    // Has a destination
+    if (edge.second.has_value()) {
+      std::weak_ptr<graphnode::Node> dest_node = GetNodePtr(*(edge.second)); 
+      assert(!dest_node.expired());
+      if (auto sp = source_node.lock()) {
+         sp->AddNeighbour(dest_node);
+      }
+    }
+  }
 }
 
 // Return nullopt if the graph can't be created

@@ -7,7 +7,7 @@
 #include <utility>
 #include <list>
 #include <memory>
-#include <map>
+#include <unordered_map>
 
 namespace graphcreator {
 
@@ -25,6 +25,8 @@ class GraphCreator {
   // Fill the adjlist_ by reading the filename_
   bool GetEdgeList();
 
+  std::weak_ptr<graphnode::Node> GetNodePtr(unsigned int node_id);
+
   // Fill the graph class
   void PopulateGraph();
   graph::Graph graph_;
@@ -34,7 +36,7 @@ class GraphCreator {
   std::list<std::pair<unsigned int, std::optional<unsigned int>>> adjlist_;
 
   // Temp processing of Graph Nodes
-  std::map<unsigned int, std::shared_ptr<graphnode::Node>> nodemap_;
+  std::unordered_map<unsigned int, std::weak_ptr<graphnode::Node>> nodemap_;
 
 };
 
