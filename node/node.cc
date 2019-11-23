@@ -5,13 +5,13 @@
 #include <memory>
 #include <assert.h>
 #include <optional>
+#include <utility>
 
 
 namespace graphnode {
 
-void Node::SetOriginalId(unsigned int original_id) {
-  assert(original_id_ == std::numeric_limits<unsigned int>::max());
-  original_id_= original_id;
+std::pair<nodeid::NodeId, unsigned int> Node::GetId() const {
+  return(std::make_pair(id_, original_id_));
 }
 
 void Node::AddNeighbour(std::weak_ptr<Node> neighbour) {
@@ -40,7 +40,7 @@ std::ostream& operator<<(std::ostream &os, const Node &node) {
 
 
 
-Node::Node (const nodeid::NodeId &nodeid): id_(nodeid), original_id_(std::numeric_limits<unsigned int>::max()), next_(std::nullopt) {};
+Node::Node (const nodeid::NodeId &nodeid, unsigned int original_id): id_(nodeid), original_id_(original_id), next_(std::nullopt) {};
 
 
 } // namespace graphnode

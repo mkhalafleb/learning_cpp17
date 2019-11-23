@@ -3,13 +3,14 @@
 #include <iostream>
 #include <optional>
 #include <memory>
+#include <utility>
 #include "nodeid/nodeid.h"
 
 namespace graphnode {
 
 class Node {
  public:
-  Node(const nodeid::NodeId &nodeid);
+  Node(const nodeid::NodeId &nodeid, unsigned int original_id);
 
   void AddNeighbour(std::weak_ptr<Node> neighbour);
 
@@ -17,7 +18,7 @@ class Node {
 
   std::weak_ptr<Node> GetNeighbour() const;
 
-  void SetOriginalId(unsigned int original_id);
+  std::pair<nodeid::NodeId, unsigned int> GetId() const;
 
   friend std::ostream& operator<<(std::ostream &os, const Node &node);
 

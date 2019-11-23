@@ -42,15 +42,9 @@ std::weak_ptr<graphnode::Node> GraphCreator::GetNodePtr(unsigned int node_id) {
   std::weak_ptr<graphnode::Node> node_ptr;
   auto it = nodemap_.find(node_id);
   if (it == nodemap_.end()) {
-      node_ptr = graph_.AddNode();
+      node_ptr = graph_.AddNode(node_id);
       nodemap_.insert(std::make_pair(node_id, node_ptr));
-      if (auto sp = node_ptr.lock()) {
-        sp->SetOriginalId(node_id);
-        return(node_ptr);
-      }
-      else {
-        return(std::weak_ptr<graphnode::Node>());
-      }
+      return(node_ptr);
   }
   else {
     node_ptr = (*it).second;
