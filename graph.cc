@@ -1,6 +1,8 @@
 #include "graph.h"
 #include "node/node.h"
 #include <string>
+#include <functional>
+#include <algorithm>
 
 
 namespace graph {
@@ -27,9 +29,13 @@ std::vector<std::pair<unsigned int,
     std::optional<unsigned int>>> Graph::GetAdjList() const {
   std::vector<std::pair<unsigned int, std::optional<unsigned int>>> adjlist;
 
-  // Capture into a 
+  // Capture into a lambda
+  auto fill_list = [&adjlist, this] (std::shared_ptr<graphnode::Node> node_ptr) {
+    this->FillAdjPair(*node_ptr, adjlist);
+  };
 
   // For each node, we need to 
+  std::for_each(nodelist_.begin(), nodelist_.end(), fill_list);
 
   return(adjlist);
 }

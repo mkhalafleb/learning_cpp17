@@ -1,7 +1,19 @@
 #include <iostream>
 #include <memory>
+#include <optional>
+#include <filesystem>
+#include <string>
+#include <cassert>
 #include "node/node.h"
 #include "graph.h"
+#include "graphcreator/graphcreator.h"
+
+
+std::string FullPath(const std::string &endpath) {
+  std::filesystem::path basepath = std::filesystem::current_path();
+  basepath /= std::filesystem::path(endpath);
+  return(basepath.string());
+};
 
 int main () {
   graph::Graph graph;
@@ -24,5 +36,21 @@ int main () {
   else {
     exit (1);
   }
+
+
+  // Do Graph2 test
+  graphcreator::GraphCreator creator(FullPath("basic_graph"));
+  std::optional<graph::Graph> graph2 = creator.CreateGraph();
+  assert(graph2.has_value());
+  auto adjlist = graph2->GetAdjList();
+  for (auto edge : adjlist) {
+    std::cout << edge.first << ",";
+    if (edge.second.has_value()) {
+      std::cout << *(edge.second);
+    }
+    std::cout << std::endl;
+
+  }
+
 }
 
