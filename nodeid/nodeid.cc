@@ -1,10 +1,20 @@
 #include <iostream>
+#include <limits>
+
 #include "nodeid.h"
+
 
 
 namespace nodeid {
 
-NodeId::NodeId(int id): id_(id) {};
+NodeId::NodeId(unsigned int nodeid) {
+  // id_ is an int because we want to use negative values as illegal
+  if (nodeid > static_cast<unsigned int> (std::numeric_limits<int>::max())) {
+    id_ = -1;
+  } else {
+    id_ = nodeid;
+  }
+};
 
 
 bool NodeId::operator==(const NodeId &nodeid) const {
@@ -23,7 +33,6 @@ std::ostream& operator<<(std::ostream &os, const NodeId &nodeid) {
 
 // A nodeID is valid only if it is assigned a positive number or 0
 bool NodeId::IsValid() const {
-  // Need to handle Overflow somehow.
   return (id_ >= 0);
 };
 

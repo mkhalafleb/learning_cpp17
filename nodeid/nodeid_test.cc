@@ -1,3 +1,4 @@
+#include <limits>
 #include "nodeid.h"
 #include "gtest/gtest.h"
 
@@ -27,6 +28,12 @@ TEST_F(NodeIdTest, NodeInvalid) {
 TEST_F(NodeIdTest, Nodevalid) {
   nodeid::NodeId a(2);
   EXPECT_TRUE(a.IsValid());
+}
+
+TEST_F(NodeIdTest, Nodelarge) {
+  unsigned int big = static_cast<unsigned int> (std::numeric_limits<int>::max())  + 1;
+  nodeid::NodeId a(big);
+  EXPECT_FALSE(a.IsValid());
 }
 
 }  // namespace
