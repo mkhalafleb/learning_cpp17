@@ -1,5 +1,5 @@
 #include "graphcreator.h"
-#include "graph.h"
+#include "graph/graph.h"
 #include "node/node.h"
 #include "textreader/textreader.h"
 #include "fixadjacency/fixadjacency.h"

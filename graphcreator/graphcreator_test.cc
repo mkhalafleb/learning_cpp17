@@ -1,6 +1,6 @@
 #include "graphcreator.h"
 #include "gtest/gtest.h"
-#include "graph.h"
+#include "graph/graph.h"
 #include <optional>
 #include <filesystem>
 

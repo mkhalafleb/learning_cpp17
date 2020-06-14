@@ -5,7 +5,7 @@
 #include <string>
 #include <cassert>
 #include "node/node.h"
-#include "graph.h"
+#include "graph/graph.h"
 #include "graphcreator/graphcreator.h"
 
 

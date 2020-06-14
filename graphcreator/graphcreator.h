@@ -1,6 +1,6 @@
 #ifndef MKHALAF_LEARNINGCPP17_GRAPHCREATOR
 #define MKHALAF_LEARNINGCPP17_GRAPHCREATOR
-#include "graph.h"
+#include "graph/graph.h"
 #include "node/node.h"
 #include <string>
 #include <optional>
