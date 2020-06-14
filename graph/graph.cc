@@ -48,6 +48,15 @@ std::weak_ptr<graphnode::Node> Graph::AddNode(unsigned int node_id) {
 }
 
 
+const std::list<std::weak_ptr<graphnode::Node>> Graph::GetNodeList() const {
+  std::list<std::weak_ptr<graphnode::Node>> list_node_ptr;
+  auto fill_list = [&list_node_ptr] (std::shared_ptr<graphnode::Node> node_ptr) {
+    list_node_ptr.emplace_front(node_ptr);
+  };
+
+  std::for_each(nodelist_.begin(), nodelist_.end(), fill_list);
+  return(list_node_ptr);
+}
 
 
 } // namespace graphnode
