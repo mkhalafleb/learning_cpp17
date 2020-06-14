@@ -16,7 +16,11 @@ class Graph {
   std::weak_ptr<graphnode::Node> AddNode(unsigned int node_id);
 
   // This graph currently only supports one edge out of each node maximum
+  // This is only for debugging
   std::vector<std::pair<unsigned int, std::optional<unsigned int>>> GetAdjList() const;
+
+  // Get a list of weak pointer to all the graph nodes
+  const std::list<std::weak_ptr<graphnode::Node>> GetNodeList() const; 
 
  private:
 
