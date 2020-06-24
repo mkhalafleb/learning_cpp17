@@ -13,7 +13,7 @@ class Graph {
  public:
   // The owner of the node is the graph so everyone else deals with weak ptrs
   // to the node so if I create a node, I get a weak ptr back of the node
-  std::weak_ptr<graphnode::Node> AddNode(unsigned int node_id);
+  std::weak_ptr<graphnode::Node> AddNode(const nodeid::NodeId &node_id);
 
   // This graph currently only supports one edge out of each node maximum
   // This is only for debugging

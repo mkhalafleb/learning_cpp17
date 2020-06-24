@@ -10,8 +10,10 @@
 
 namespace graphnode {
 
-std::pair<nodeid::NodeId, unsigned int> Node::GetId() const {
-  return(std::make_pair(id_, original_id_));
+// Return a struct that has both the current NodeId and the original one at the 
+// creation of the Node
+Node::DualId  Node::GetIds() const { 
+  return( Node::DualId {id_, original_id_} );
 }
 
 void Node::AddNeighbour(std::weak_ptr<Node> neighbour) {
@@ -34,13 +36,14 @@ std::weak_ptr<Node> Node::GetNeighbour() const {
 };
 
 std::ostream& operator<<(std::ostream &os, const Node &node) {
-  os << node.id_;
+  os << node.id_ ;
   return(os);
 }
 
 
 
-Node::Node (const nodeid::NodeId &nodeid, unsigned int original_id): id_(nodeid), original_id_(original_id), next_(std::nullopt) {};
+
+Node::Node (const Node::DualId &dual_id) : id_(dual_id.nodeid_), original_id_(dual_id.original_id_), next_(std::nullopt) {};
 
 
 } // namespace graphnode

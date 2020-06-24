@@ -10,7 +10,13 @@ namespace graphnode {
 
 class Node {
  public:
-  Node(const nodeid::NodeId &nodeid, unsigned int original_id);
+
+  struct DualId {
+    nodeid::NodeId nodeid_;
+    nodeid::NodeId original_id_;
+  };
+
+  Node(const Node::DualId &dual_id);
 
   void AddNeighbour(std::weak_ptr<Node> neighbour);
 
@@ -18,16 +24,19 @@ class Node {
 
   std::weak_ptr<Node> GetNeighbour() const;
 
-  std::pair<nodeid::NodeId, unsigned int> GetId() const;
+  Node::DualId GetIds() const;
 
   friend std::ostream& operator<<(std::ostream &os, const Node &node);
 
  private:
+  int label; // Used as a label for node
   nodeid::NodeId id_;
-  unsigned int original_id_; // only used as a marker during creation
-  std::optional <std::weak_ptr<Node>> next_;
+  nodeid::NodeId original_id_; // only used as a marker during creation
+
   // Each node has one and only one next pointer for now and does
   // not own the next node.
+  // If there is no pointer, then the node is a leaf node
+  std::optional <std::weak_ptr<Node>> next_;
 };
 
 } // namespace graphnode
