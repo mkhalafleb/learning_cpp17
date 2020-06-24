@@ -14,6 +14,9 @@ class NodeId {
   // valid
   bool IsValid() const;
 
+  // Only for debugging
+  unsigned int GetDebugId() const;
+
   friend std::ostream& operator<<(std::ostream &os, const NodeId &nodeid);
 
  private:

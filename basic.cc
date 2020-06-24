@@ -17,7 +17,7 @@ std::string FullPath(const std::string &endpath) {
 
 int main () {
   graph::Graph graph;
-  graphnode::Node node_a(0, 1), node_b(2, 2);
+  graphnode::Node node_a({0, 1}), node_b({2, 2});
 
   std::cout << "Node A: " << node_a << std::endl;
   std::cout << "Node B: " << node_b << std::endl;

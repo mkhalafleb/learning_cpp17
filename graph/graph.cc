@@ -12,14 +12,14 @@ unsigned int Graph::lastnodeid_ = 0;
 
 void Graph::FillAdjPair(const graphnode::Node &node,
                         std::vector<std::pair<unsigned int, std::optional<unsigned int>>> &adjlist) const {
-  unsigned int creation_id = (node.GetId()).second;
+  unsigned int creation_id = (node.GetIds().original_id_).GetDebugId();
 
   if (!node.HasNeighbour()) {
     adjlist.push_back(std::make_pair(creation_id, std::nullopt));
   }
   else {
     auto sp = node.GetNeighbour().lock(); 
-    adjlist.push_back(std::make_pair(creation_id, std::make_optional((sp->GetId()).second)));
+    adjlist.push_back(std::make_pair(creation_id, std::make_optional((node.GetIds().original_id_).GetDebugId())));
   }
 }
 
@@ -40,10 +40,10 @@ std::vector<std::pair<unsigned int,
   return(adjlist);
 }
 
-std::weak_ptr<graphnode::Node> Graph::AddNode(unsigned int node_id) {
+std::weak_ptr<graphnode::Node> Graph::AddNode(const nodeid::NodeId &node_id) {
   // Nodes should have unique IDs but for now this is a dummy function
   // that just adds a dummy node and adds it to the list
-  nodelist_.emplace_front(std::make_shared<graphnode::Node> (lastnodeid_++, node_id));
+  nodelist_.emplace_front(std::make_shared<graphnode::Node> (graphnode::Node::DualId {lastnodeid_++, node_id}));
   return(nodelist_.front());
 }
 

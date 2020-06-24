@@ -26,6 +26,10 @@ bool NodeId::operator!=(const NodeId &nodeid) const {
   return(!((*this) == nodeid));
 }
 
+unsigned int NodeId::GetDebugId() const {
+  return(id_);
+}
+
 std::ostream& operator<<(std::ostream &os, const NodeId &nodeid) {
   os << nodeid.id_;
   return(os);
