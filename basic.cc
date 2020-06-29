@@ -1,21 +1,20 @@
+#include "graph/graph.h"
+#include "graphcreator/graphcreator.h"
+#include "node/node.h"
+#include <cassert>
+#include <filesystem>
 #include <iostream>
 #include <memory>
 #include <optional>
-#include <filesystem>
 #include <string>
-#include <cassert>
-#include "node/node.h"
-#include "graph/graph.h"
-#include "graphcreator/graphcreator.h"
-
 
 std::string FullPath(const std::string &endpath) {
   std::filesystem::path basepath = std::filesystem::current_path();
   basepath /= std::filesystem::path(endpath);
-  return(basepath.string());
+  return (basepath.string());
 };
 
-int main () {
+int main() {
   graph::Graph graph;
   graphnode::Node node_a({0, 1}), node_b({2, 2});
 
@@ -25,18 +24,15 @@ int main () {
   std::weak_ptr<graphnode::Node> nodeptr = graph.AddNode(0);
   if (auto spt = nodeptr.lock()) {
     std::cout << "Node C: " << *spt << std::endl;
-  }
-  else {
-    exit (1);
+  } else {
+    exit(1);
   }
   nodeptr = graph.AddNode(0);
   if (auto spt = nodeptr.lock()) {
     std::cout << "Node D: " << *spt << std::endl;
+  } else {
+    exit(1);
   }
-  else {
-    exit (1);
-  }
-
 
   // Do Graph2 test
   graphcreator::GraphCreator creator(FullPath("basic_graph"));
@@ -49,8 +45,5 @@ int main () {
       std::cout << *(edge.second);
     }
     std::cout << std::endl;
-
   }
-
 }
-
