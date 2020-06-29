@@ -21,7 +21,7 @@ void Graph::FillAdjPair(
     auto sp = node.GetNeighbour().lock();
     adjlist.push_back(std::make_pair(
         creation_id,
-        std::make_optional((node.GetIds().original_id_).GetDebugId())));
+        std::make_optional((sp->GetIds().original_id_).GetDebugId())));
   }
 }
 
