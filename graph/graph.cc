@@ -12,6 +12,7 @@ void Graph::FillAdjPair(
     const graphnode::Node &node,
     std::vector<std::pair<unsigned int, std::optional<unsigned int>>> &adjlist)
     const {
+
   unsigned int creation_id = (node.GetIds().original_id_).GetDebugId();
 
   if (!node.HasNeighbour()) {
@@ -47,6 +48,19 @@ std::weak_ptr<graphnode::Node> Graph::AddNode(const nodeid::NodeId &node_id) {
   return (nodelist_.front());
 }
 
+bool Graph::CompareNodePtr(const std::weak_ptr<graphnode::Node> &node_a,
+                           const std::weak_ptr<graphnode::Node> &node_b) {
+  if (node_a.expired() || node_b.expired()) {
+    return (true);
+  }
+
+  graphnode::Node node_a_full = *(node_a.lock());
+  graphnode::Node node_b_full = *(node_b.lock());
+
+  return (node_a_full.GetIds().original_id_ <
+          node_b_full.GetIds().original_id_);
+}
+
 const std::list<std::weak_ptr<graphnode::Node>> Graph::GetNodeList() const {
   std::list<std::weak_ptr<graphnode::Node>> list_node_ptr;
   auto fill_list = [&list_node_ptr](std::shared_ptr<graphnode::Node> node_ptr) {
@@ -54,6 +68,7 @@ const std::list<std::weak_ptr<graphnode::Node>> Graph::GetNodeList() const {
   };
 
   std::for_each(nodelist_.begin(), nodelist_.end(), fill_list);
+  list_node_ptr.sort(CompareNodePtr);
   return (list_node_ptr);
 }
 
