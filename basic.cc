@@ -4,6 +4,7 @@
 #include <cassert>
 #include <filesystem>
 #include <iostream>
+#include <list>
 #include <memory>
 #include <optional>
 #include <string>
@@ -46,4 +47,30 @@ int main() {
     }
     std::cout << std::endl;
   }
+
+  // Print the nodes
+  const std::list<std::weak_ptr<graphnode::Node>> node_list =
+      graph2->GetNodeList();
+  std::cout << "Node List" << std::endl;
+  for (auto node : node_list) {
+    assert(!node.expired());
+    std::cout << (node.lock())->GetIds().original_id_ << ", ";
+  }
+  std::cout << std::endl;
+  std::cout << "Edge List" << std::endl;
+  for (auto node : node_list) {
+    assert(!node.expired());
+    auto sp = node.lock();
+    std::cout << sp->GetIds().original_id_ << "-> ";
+    if (sp->HasNeighbour()) {
+      auto neighbour = sp->GetNeighbour();
+      assert(!neighbour.expired());
+      auto sp_n = neighbour.lock();
+      std::cout << sp_n->GetIds().original_id_;
+      std::cout << std::endl;
+    } else {
+      std::cout << std::endl;
+    }
+  }
+  std::cout << std::endl;
 }
