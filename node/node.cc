@@ -16,9 +16,9 @@ Node::DualId Node::GetIds() const { return (Node::DualId{id_, original_id_}); }
 void Node::AddNeighbour(std::weak_ptr<Node> neighbour) {
   assert(!next_.has_value());
   next_ = neighbour;
-};
+}
 
-bool Node::HasNeighbour() const { return (next_.has_value()); };
+bool Node::HasNeighbour() const { return (next_.has_value()); }
 
 // if it has a neighbour return it otherwise assert because it should not
 // be called. I thought I also maybe should return an empty weak_ptr but for
@@ -28,7 +28,7 @@ std::weak_ptr<Node> Node::GetNeighbour() const {
   // It also should not be expired
   assert(!next_->expired());
   return (*next_);
-};
+}
 
 std::ostream &operator<<(std::ostream &os, const Node &node) {
   os << node.id_;
@@ -36,7 +36,11 @@ std::ostream &operator<<(std::ostream &os, const Node &node) {
 }
 
 Node::Node(const Node::DualId &dual_id)
-    : id_(dual_id.nodeid_), original_id_(dual_id.original_id_),
+    : label_(-1), id_(dual_id.nodeid_), original_id_(dual_id.original_id_),
       next_(std::nullopt){};
+
+void Node::SetLabel(int label) { label_ = label; }
+
+int Node::GetLabel() const { return (label_); }
 
 } // namespace graphnode

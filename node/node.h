@@ -27,8 +27,11 @@ public:
 
   friend std::ostream &operator<<(std::ostream &os, const Node &node);
 
+  void SetLabel(int label);
+  int GetLabel() const;
+
 private:
-  int label; // Used as a label for node
+  int label_; // Used as a label for node
   nodeid::NodeId id_;
   nodeid::NodeId original_id_; // only used as a marker during creation
 
