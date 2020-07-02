@@ -7,6 +7,7 @@ cc_binary(
         "//graphcreator:graphcreator",
         "//node:node",
         "//nodeid:nodeid",
+	"//algorithm:algorithm",
     ],
 )
 

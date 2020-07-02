@@ -1,3 +1,4 @@
+#include "algorithm/algorithm.h"
 #include "graph/graph.h"
 #include "graphcreator/graphcreator.h"
 #include "node/node.h"
@@ -73,4 +74,7 @@ int main() {
     }
   }
   std::cout << std::endl;
+
+  std::string path = algorithm::GraphDFS(*graph2);
+  std::cout << "PATH = " << path << std::endl;
 }
