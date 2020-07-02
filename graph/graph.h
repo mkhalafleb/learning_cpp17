@@ -17,6 +17,7 @@ public:
 
   // This graph currently only supports one edge out of each node maximum
   // This is only for debugging
+  // Will likely be deleted in favor of DFS
   std::vector<std::pair<unsigned int, std::optional<unsigned int>>>
   GetAdjList() const;
 
