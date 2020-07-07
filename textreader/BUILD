@@ -3,19 +3,20 @@ cc_library(
     srcs = ["textreader.cc"],
     hdrs = ["textreader.h"],
     visibility = ["//visibility:public"],
-    deps = ["//parsehelp:parsehelp"],
+    deps = ["//parsehelp"],
 )
 
 cc_test(
     name = "textreader_test",
     srcs = ["textreader_test.cc"],
-    data = ["basic_list",
-            "basic_list_dup",
-           ],
+    data = [
+        "basic_list",
+        "basic_list_dup",
+    ],
     linkopts = ["-lstdc++fs"],
     deps = [
         ":textreader",
-        "//parsehelp:parsehelp",
+        "//parsehelp",
         "@gtest",
         "@gtest//:gtest_main",
     ],
