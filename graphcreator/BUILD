@@ -2,12 +2,13 @@ cc_library(
     name = "graphcreator",
     srcs = ["graphcreator.cc"],
     hdrs = ["graphcreator.h"],
-    deps = ["//graph:graph",
-            "//textreader:textreader",
-            "//fixadjacency:fixadjacency",
-            "//node:node",
-           ],
     visibility = ["//visibility:public"],
+    deps = [
+        "//fixadjacency",
+        "//graph",
+        "//node",
+        "//textreader",
+    ],
 )
 
 cc_test(

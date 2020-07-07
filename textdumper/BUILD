@@ -8,13 +8,12 @@ cc_library(
 cc_test(
     name = "textdumper_test",
     srcs = ["textdumper_test.cc"],
-    linkopts = ["-lstdc++fs"],
     data = ["basic_list"],
+    linkopts = ["-lstdc++fs"],
     deps = [
         ":textdumper",
-        "//cmpfiles:cmpfiles", 
+        "//cmpfiles",
         "@gtest",
         "@gtest//:gtest_main",
     ],
 )
-

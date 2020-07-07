@@ -14,4 +14,3 @@ cc_library(
     hdrs = ["nodeid.h"],
     visibility = ["//visibility:public"],
 )
-

@@ -3,12 +3,10 @@ cc_binary(
     srcs = ["basic.cc"],
     linkopts = ["-lstdc++fs"],
     deps = [
-        "//graph:graph",
-        "//graphcreator:graphcreator",
-        "//node:node",
-        "//nodeid:nodeid",
-	"//algorithm:algorithm",
+        "//algorithm",
+        "//graph",
+        "//graphcreator",
+        "//node",
+        "//nodeid",
     ],
 )
-
-
