@@ -39,7 +39,9 @@ std::string GraphDFSVisit(std::weak_ptr<graphnode::Node> node_ptr) {
       sp->SetLabel(1);
       return (visit_path);
     }
-    visit_path += GraphDFSVisit(sp->GetNeighbour());
+    for (auto node : sp->GetNeighbours()) {
+      visit_path += GraphDFSVisit(node);
+    }
     sp->SetLabel(1);
   }
   return (visit_path);

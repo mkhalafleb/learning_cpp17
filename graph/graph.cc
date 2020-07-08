@@ -18,7 +18,9 @@ void Graph::FillAdjPair(
   if (!node.HasNeighbour()) {
     adjlist.push_back(std::make_pair(creation_id, std::nullopt));
   } else {
-    auto sp = node.GetNeighbour().lock();
+    auto nlist = node.GetNeighbours();
+    // For now, we support only 1 edge out of node
+    auto sp = nlist.back().lock();
     adjlist.push_back(std::make_pair(
         creation_id,
         std::make_optional((sp->GetIds().original_id_).GetDebugId())));
