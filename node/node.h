@@ -2,6 +2,7 @@
 #define MKHALAF_LEARNINGCPP17_NODE
 #include "nodeid/nodeid.h"
 #include <iostream>
+#include <list>
 #include <memory>
 #include <optional>
 #include <utility>
@@ -21,7 +22,7 @@ public:
 
   bool HasNeighbour() const;
 
-  std::weak_ptr<Node> GetNeighbour() const;
+  const std::list<std::weak_ptr<Node>> GetNeighbours() const;
 
   Node::DualId GetIds() const;
 

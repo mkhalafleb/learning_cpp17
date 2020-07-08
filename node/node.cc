@@ -23,11 +23,14 @@ bool Node::HasNeighbour() const { return (next_.has_value()); }
 // if it has a neighbour return it otherwise assert because it should not
 // be called. I thought I also maybe should return an empty weak_ptr but for
 // now assert
-std::weak_ptr<Node> Node::GetNeighbour() const {
+const std::list<std::weak_ptr<Node>> Node::GetNeighbours() const {
   assert(this->HasNeighbour());
   // It also should not be expired
   assert(!next_->expired());
-  return (*next_);
+
+  std::list<std::weak_ptr<Node>> nlist;
+  nlist.emplace_back(*next_);
+  return (nlist);
 }
 
 std::ostream &operator<<(std::ostream &os, const Node &node) {

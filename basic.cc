@@ -64,7 +64,9 @@ int main() {
     auto sp = node.lock();
     std::cout << sp->GetIds().original_id_ << "-> ";
     if (sp->HasNeighbour()) {
-      auto neighbour = sp->GetNeighbour();
+      auto nlist = sp->GetNeighbours();
+      assert(nlist.size() == 1);
+      auto neighbour = nlist.front();
       assert(!neighbour.expired());
       auto sp_n = neighbour.lock();
       std::cout << sp_n->GetIds().original_id_;

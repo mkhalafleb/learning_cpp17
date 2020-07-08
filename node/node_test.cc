@@ -24,7 +24,9 @@ TEST_F(NodeTest, TwoNodes) {
 
   EXPECT_FALSE(n_b->HasNeighbour());
   EXPECT_TRUE(n_a->HasNeighbour());
-  std::shared_ptr<graphnode::Node> n_a_neighbour = n_a->GetNeighbour().lock();
+  auto nlist = n_a->GetNeighbours();
+  EXPECT_EQ(nlist.size(), 1);
+  std::shared_ptr<graphnode::Node> n_a_neighbour = nlist.back().lock();
   EXPECT_TRUE(n_a_neighbour);
   EXPECT_EQ(n_a_neighbour, n_b);
 }
@@ -35,7 +37,9 @@ TEST_F(NodeTest, NodePointsToItself) {
   EXPECT_FALSE(n_a->HasNeighbour());
   n_a->AddNeighbour(n_a);
   EXPECT_TRUE(n_a->HasNeighbour());
-  std::shared_ptr<graphnode::Node> n_a_neighbour = n_a->GetNeighbour().lock();
+  auto nlist = n_a->GetNeighbours();
+  EXPECT_EQ(nlist.size(), 1);
+  std::shared_ptr<graphnode::Node> n_a_neighbour = nlist.back().lock();
   EXPECT_TRUE(n_a_neighbour);
   EXPECT_EQ(n_a_neighbour, n_a);
 }
