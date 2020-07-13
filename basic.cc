@@ -78,5 +78,8 @@ int main() {
   std::cout << std::endl;
 
   std::string path = algorithm::GraphDFS(*graph2);
-  std::cout << "PATH = " << path << std::endl;
+  std::cout << "PATH (DFS)= " << path << std::endl;
+
+  path = algorithm::GraphBFS(*graph2);
+  std::cout << "PATH (BFS)= " << path << std::endl;
 }
