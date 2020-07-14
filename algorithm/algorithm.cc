@@ -46,7 +46,8 @@ GraphBFSVisit(std::queue<std::weak_ptr<graphnode::Node>> &bfs_queue) {
       auto node_neighbours = sp->GetNeighbours();
       for (auto node : node_neighbours) {
         auto sp = node.lock();
-        if ((sp) && (sp->GetLabel() != 1)) {
+        if ((sp) && (sp->GetLabel() == -1)) {
+          sp->SetLabel(0);
           bfs_queue.push(node);
         }
       }
