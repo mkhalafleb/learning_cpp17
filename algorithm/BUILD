@@ -9,3 +9,17 @@ cc_library(
         "//nodeid",
     ],
 )
+
+cc_test(
+    name = "algorithm_test",
+    srcs = ["algorithm_test.cc"],
+    data = ["basic_graph"],
+    linkopts = ["-lstdc++fs"],
+    deps = [
+        ":algorithm",
+        "//graph",
+        "//graphcreator",
+        "@gtest",
+        "@gtest//:gtest_main",
+    ],
+)
