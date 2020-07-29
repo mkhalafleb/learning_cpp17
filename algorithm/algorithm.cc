@@ -27,29 +27,30 @@ GraphBFSVisit(std::queue<std::weak_ptr<graphnode::Node>> &bfs_queue) {
   // 1 is done with all its children
   std::string visit_path("");
 
+  if (bfs_queue.empty()) {
+    return ("");
+  }
   auto sp = bfs_queue.front().lock();
   if (!sp) {
     return ("");
   }
 
-  // Pop the queue because we are not processing sp
+  // Pop the queue because we are now processing sp
   bfs_queue.pop();
 
   // Now the node is either -1 which is never visited
   // 0, I have seen it before
   // 1, I have done all its childen
-  if (sp->GetLabel() == -1) {
-    // Enqueue all the children
-    sp->SetLabel(0);
-    // Does it have neighbours
-    if (sp->HasNeighbour()) {
-      auto node_neighbours = sp->GetNeighbours();
-      for (auto node : node_neighbours) {
-        auto sp = node.lock();
-        if ((sp) && (sp->GetLabel() == -1)) {
-          sp->SetLabel(0);
-          bfs_queue.push(node);
-        }
+  // Enqueue all the children
+  sp->SetLabel(0);
+  // Does it have neighbours
+  if (sp->HasNeighbour()) {
+    auto node_neighbours = sp->GetNeighbours();
+    for (auto node : node_neighbours) {
+      auto sp_neighbour = node.lock();
+      if ((sp_neighbour) && (sp_neighbour->GetLabel() == -1)) {
+        sp_neighbour->SetLabel(0);
+        bfs_queue.push(node);
       }
     }
   }
