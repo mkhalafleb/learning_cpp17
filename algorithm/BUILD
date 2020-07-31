@@ -19,6 +19,7 @@ cc_test(
         ":algorithm",
         "//graph",
         "//graphcreator",
+        "//testutils",
         "@gtest",
         "@gtest//:gtest_main",
     ],
