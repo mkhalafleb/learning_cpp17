@@ -26,7 +26,7 @@ std::optional<unsigned int> ParseHelp::ExtractInt(std::string_view number) {
 
 
   // Need to add the fact null is real and all whitespace is real
-  std::string num(number);
+  std::string num { number };
   std::string::size_type loc;
 
 
