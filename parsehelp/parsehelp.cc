@@ -22,18 +22,17 @@ bool ParseHelp::IsAllBlank(const std::string &str) {
 }
 
 
-std::optional<unsigned int> ParseHelp::ExtractInt(std::string_view number) {
+std::optional<unsigned int> ParseHelp::ExtractInt(const std::string &number) {
 
 
   // Need to add the fact null is real and all whitespace is real
-  std::string num { number };
   std::string::size_type loc;
 
 
   try {
-    int i_dec = std::stoi(num, &loc);
-    bool full_string_converted = (loc == num.size());
-    bool remainder_blank = ParseHelp::IsAllBlank(num.substr(loc,num.size()-loc));
+    int i_dec = std::stoi(number, &loc);
+    bool full_string_converted = (loc == number.size());
+    bool remainder_blank = ParseHelp::IsAllBlank(number.substr(loc,number.size()-loc));
 
     if ((full_string_converted || remainder_blank) && (i_dec >=0))
     {
@@ -45,14 +44,14 @@ std::optional<unsigned int> ParseHelp::ExtractInt(std::string_view number) {
     }
   }
   catch (const std::invalid_argument &ia) {
-    if (ParseHelp::IsAllBlank(num)) {
+    if (ParseHelp::IsAllBlank(number)) {
       return(std::nullopt);
     } else {
       return(std::numeric_limits<unsigned int>::max());
     }
   }
   catch (const std::out_of_range &ior) {
-    if (ParseHelp::IsAllBlank(num)) {
+    if (ParseHelp::IsAllBlank(number)) {
       return(std::nullopt);
     } else {
       return(std::numeric_limits<unsigned int>::max());
